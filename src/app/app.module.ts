@@ -30,6 +30,10 @@ import {CourseResolver} from "./services/course.resolver";
 import { CourseDialogComponent } from './course-dialog/course-dialog.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatMomentDateModule} from "@angular/material-moment-adapter";
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { MatTestComponent } from './mat-test/mat-test.component';
+import { AgGridModule } from 'ag-grid-angular';
+import { NumericEditorComponent } from './numeric-editor/numeric-editor.component';
 
 @NgModule({
     declarations: [
@@ -38,7 +42,9 @@ import {MatMomentDateModule} from "@angular/material-moment-adapter";
         AboutComponent,
         CourseComponent,
         CoursesCardListComponent,
-        CourseDialogComponent
+        CourseDialogComponent,
+        MatTestComponent,
+        NumericEditorComponent
     ],
     imports: [
         BrowserModule,
@@ -58,11 +64,13 @@ import {MatMomentDateModule} from "@angular/material-moment-adapter";
         MatSortModule,
         MatProgressSpinnerModule,
         MatDialogModule,
+        MatButtonToggleModule,
         AppRoutingModule,
         MatSelectModule,
         MatDatepickerModule,
         MatMomentDateModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        AgGridModule.withComponents([NumericEditorComponent])
     ],
     providers: [
         CoursesService,

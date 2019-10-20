@@ -4,6 +4,7 @@ import {HomeComponent} from "./home/home.component";
 import {AboutComponent} from "./about/about.component";
 import {CourseComponent} from "./course/course.component";
 import {CourseResolver} from "./services/course.resolver";
+import {MatTestComponent} from './mat-test/mat-test.component';
 
 const routes: Routes = [
     {
@@ -23,8 +24,8 @@ const routes: Routes = [
         }
     },
     {
-        path: "**",
-        redirectTo: '/'
+        path: 'test',
+        component: MatTestComponent
     }
 ];
 
