@@ -20,7 +20,8 @@ export class MatTestComponent implements OnInit, AfterViewInit {
   }
   columnDefs = [
     {headerName: 'ID', field: 'id', sortable: true, filter: true,
-    cellRenderer: 'courseActionComponent'
+    cellRenderer: 'courseActionComponent',
+    autoHeight: true
     },
     {headerName: 'Decs', field: 'description', sortable: true, filter: true, editable: true},
     {headerName: 'Url', field: 'iconUrl', sortable: true, filter: true},
