@@ -34,6 +34,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { MatTestComponent } from './mat-test/mat-test.component';
 import { AgGridModule } from 'ag-grid-angular';
 import { NumericEditorComponent } from './numeric-editor/numeric-editor.component';
+import { CourseActionComponent } from './course-action/course-action.component';
 
 @NgModule({
     declarations: [
@@ -44,7 +45,8 @@ import { NumericEditorComponent } from './numeric-editor/numeric-editor.componen
         CoursesCardListComponent,
         CourseDialogComponent,
         MatTestComponent,
-        NumericEditorComponent
+        NumericEditorComponent,
+        CourseActionComponent
     ],
     imports: [
         BrowserModule,
@@ -70,7 +72,7 @@ import { NumericEditorComponent } from './numeric-editor/numeric-editor.componen
         MatDatepickerModule,
         MatMomentDateModule,
         ReactiveFormsModule,
-        AgGridModule.withComponents([NumericEditorComponent])
+        AgGridModule.withComponents([NumericEditorComponent, CourseActionComponent])
     ],
     providers: [
         CoursesService,

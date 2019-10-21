@@ -2,16 +2,16 @@
     #myGrid
     style="width: 100%; height: 200px"
     class="ag-theme-balham"
-    [rowData]="rowData| async"
+
     [columnDefs]="columnDefs"
     [frameworkComponents]="frameworkComponents"
     animateRows
     pagination
-
     rowHeight="22"
     rowSelection="multiple"
     (modelUpdated)="onModelUpdated($event)"
     (cellClicked)="onCellClicked($event)"
+    (gridReady)="onGridReady($event)"
     >
 </ag-grid-angular>
 

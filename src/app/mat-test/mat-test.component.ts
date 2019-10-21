@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { Course } from '../model/course';
 import {NumericEditorComponent} from '../numeric-editor/numeric-editor.component';
 import { AgGridAngular } from 'ag-grid-angular';
+import { RowNode, SelectCellEditor, RowSelectedEvent } from 'ag-grid-community';
+import { CourseActionComponent } from '../course-action/course-action.component';
 
 @Component({
   selector: 'mat-test',
@@ -17,8 +19,10 @@ export class MatTestComponent implements OnInit, AfterViewInit {
     this.rowData = coursesService.findAllCourses();
   }
   columnDefs = [
-    {headerName: 'ID', field: 'id', sortable: true, filter: true},
-    {headerName: 'Decs', field: 'description', sortable: true, filter: true},
+    {headerName: 'ID', field: 'id', sortable: true, filter: true,
+    cellRenderer: 'courseActionComponent'
+    },
+    {headerName: 'Decs', field: 'description', sortable: true, filter: true, editable: true},
     {headerName: 'Url', field: 'iconUrl', sortable: true, filter: true},
     {headerName: 'List', field: 'longDescription', sortable: true, filter: true},
     {headerName: 'Category', field: 'category', sortable: true, filter: true},
@@ -27,16 +31,31 @@ export class MatTestComponent implements OnInit, AfterViewInit {
       cellEditor: 'numericEditorComponent'
     }
   ];
-  frameworkComponents = {numericEditorComponent: NumericEditorComponent};
+  frameworkComponents = {numericEditorComponent: NumericEditorComponent, courseActionComponent: CourseActionComponent};
   ngOnInit() {
+    this.rowData.subscribe((courses: Course[]) => this.grid.api.setRowData(courses));
   }
   ngAfterViewInit(): void {
-    this.grid.api.selectAll();
+    //this.grid.api.selectAll();
+    //this.grid.api.forEachNode((rowNode: RowNode, index: number) => console.log(rowNode.data));
+    console.log('After View Init');
+  }
+  onGridReady(event) {
+    console.log('Grid Ready');
+    console.log(event);
+    this.grid.gridOptions.onRowSelected = (event) => { console.log(event)};
+    this.grid.gridOptions.onRowClicked = (event) => { console.log(event)};
+    this.grid.gridOptions.onCellClicked = (event) => { console.log(event)};
+    this.grid.defaultColDef = {editable: true, resizable: true};
   }
   onModelUpdated(event) {
-    console.log(event);
+    //console.log(event);
+    //this.grid.api.forEachNode((rowNode: RowNode, index: number) => console.log(rowNode.data.id));
+    //this.grid.api.selectAll();
+    //const selected = this.grid.api.getSelectedNodes();
+    //this.grid.gridOptions.onRowSelected = (event) => { console.log(event)};
   }
   onCellClicked(event) {
-    console.log(event);
+    //console.log(event);
   }
 }
