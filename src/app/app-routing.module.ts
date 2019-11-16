@@ -5,11 +5,13 @@ import {AboutComponent} from "./about/about.component";
 import {CourseComponent} from "./course/course.component";
 import {CourseResolver} from "./services/course.resolver";
 import {MatTestComponent} from './mat-test/mat-test.component';
+import {MdComponent} from './md/md.component';
 
 const routes: Routes = [
     {
         path: "",
-        component: HomeComponent
+        //component: HomeComponent
+        component: MdComponent
 
     },
     {

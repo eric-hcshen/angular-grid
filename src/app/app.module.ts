@@ -32,9 +32,11 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatMomentDateModule} from "@angular/material-moment-adapter";
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { MatTestComponent } from './mat-test/mat-test.component';
-import { AgGridModule } from 'ag-grid-angular';
+//import { AgGridModule } from 'ag-grid-angular';
+import { AgGridModule } from '@ag-grid-community/angular';
 import { NumericEditorComponent } from './numeric-editor/numeric-editor.component';
 import { CourseActionComponent } from './course-action/course-action.component';
+import { MdComponent } from './md/md.component';
 
 @NgModule({
     declarations: [
@@ -46,7 +48,8 @@ import { CourseActionComponent } from './course-action/course-action.component';
         CourseDialogComponent,
         MatTestComponent,
         NumericEditorComponent,
-        CourseActionComponent
+        CourseActionComponent,
+        MdComponent
     ],
     imports: [
         BrowserModule,

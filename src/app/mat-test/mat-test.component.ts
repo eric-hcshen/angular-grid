@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Course } from '../model/course';
 import {NumericEditorComponent} from '../numeric-editor/numeric-editor.component';
 import { AgGridAngular } from 'ag-grid-angular';
+//import { AgGridModule as AgGridAngular} from '@ag-grid-community/angular';
 import { RowNode, SelectCellEditor, RowSelectedEvent } from 'ag-grid-community';
 import { CourseActionComponent } from '../course-action/course-action.component';
 
