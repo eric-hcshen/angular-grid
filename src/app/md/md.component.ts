@@ -13,36 +13,44 @@ export class MdComponent {
   private gridApi;
   private gridColumnApi;
   public modules = AllModules;
-
-  private columnDefs;
+  public columnDefs;
   private detailCellRendererParams;
-  private rowData;
+  public rowData;
 
   constructor(private http: HttpClient) {
     this.columnDefs = [
       {
         field: 'master_name',
         cellRenderer: 'agGroupCellRenderer',
-        editable: true
+        editable: true,
+        cellEditor: 'agLargeTextCellEditor'
       },
-      { field: "col1", editable: true },
-      { field: "col2", editable: true },
+      { field: 'col1', editable: true },
+      { field: 'col2', editable: true },
       {
-        field: "col3", editable: true
-        //valueFormatter: "x.toLocaleString() + 'm'"
+        field: 'col3', editable: true,
+        cellEditor: 'agRichSelectCellEditor',
+        cellEditorParams: function(params) {
+          return {
+            values: ['1', '2', '3'],
+            formatValue: function(value) {
+              return value;
+            }
+          };
+        }
       }
     ];
     this.detailCellRendererParams = {
       detailGridOptions: {
         columnDefs: [
-          { field: "detail_name" },
-          { field: "col1" },
-          { field: "col2" },
+          { field: 'detail_name' },
+          { field: 'col1' },
+          { field: 'col2' },
           {
-            field: "col3",
+            field: 'col3',
             //valueFormatter: "x.toLocaleString() + 's'"
           },
-          { field: "masterId" }
+          { field: 'masterId' }
         ],
         onFirstDataRendered: function(params) {
           params.api.sizeColumnsToFit();
@@ -72,7 +80,6 @@ export class MdComponent {
   refresh () {
     this.http
     .get(
-      //"https://raw.githubusercontent.com/ag-grid/ag-grid-docs/latest/src/javascript-grid-master-detail/simple/data/data.json"
         'http://localhost:3000/masters?filter[include][][relation]=details'
       )
     .subscribe(data => {
@@ -85,29 +92,35 @@ export class MdComponent {
 
     this.http
       .get(
-        //"https://raw.githubusercontent.com/ag-grid/ag-grid-docs/latest/src/javascript-grid-master-detail/simple/data/data.json"
           'http://localhost:3000/masters?filter[include][][relation]=details'
         )
       .subscribe(data => {
         this.rowData = data;
       });
-      this.grid.gridOptions.onCellEditingStopped = (event) => {
-        console.log(event.value + event.colDef.field + event.data.id);
-        console.log(`http://localhost:3000/masters/{${event.data.id}}`);
-        console.log(`{${event.colDef.field}=${event.value}}`);
-        console.log(event);
-        const headers = new HttpHeaders().set('Content-Type', 'application/json');
-        const params = new HttpParams({
-          fromObject: { master_name: 'test02'} //<==not work
-          });
-        this.http.patch(`http://localhost:3000/masters/${event.data.id}`,
-         //`"{"${event.colDef.field}"="${event.value}"}"`
-         //params
-         event.data
-         , {headers})
-         .subscribe(data => {
-           console.log(data); //`${event.colDef.field}=${event.value}`
-         });
-      };
+    this.grid.gridOptions.getRowStyle = function(params) {
+      if (params.data.col3  === '1') {
+          return { background: 'red' };
+      } else {
+        return { background: '-internal-root-color' };
+      }
+    }
+    this.grid.gridOptions.onCellEditingStopped = (event) => {
+      console.log(event.value + event.colDef.field + event.data.id);
+      console.log(`http://localhost:3000/masters/{${event.data.id}}`);
+      console.log(`{${event.colDef.field}=${event.value}}`);
+      console.log(event);
+      const headers = new HttpHeaders().set('Content-Type', 'application/json');
+      const params = new HttpParams({
+        fromObject: { master_name: 'test02'} //<==not work
+        });
+      this.http.patch(`http://localhost:3000/masters/${event.data.id}`,
+        //`"{"${event.colDef.field}"="${event.value}"}"`
+        //params
+        event.data
+        , {headers})
+        .subscribe(data => {
+          console.log(data); //`${event.colDef.field}=${event.value}`
+        });
+    };
   }
 }
