@@ -38,7 +38,8 @@ export class MdComponent {
             }
           };
         }
-      }
+      },
+      { field: 'col4', editable: true },
     ];
     this.detailCellRendererParams = {
       detailGridOptions: {
@@ -46,10 +47,7 @@ export class MdComponent {
           { field: 'detail_name' },
           { field: 'col1' },
           { field: 'col2' },
-          {
-            field: 'col3',
-            //valueFormatter: "x.toLocaleString() + 's'"
-          },
+          { field: 'col3'},
           { field: 'masterId' }
         ],
         onFirstDataRendered: function(params) {
